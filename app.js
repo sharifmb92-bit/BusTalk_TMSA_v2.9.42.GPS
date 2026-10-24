@@ -1,4 +1,4 @@
-// medbasha - Lógica de BusTalk_v 2.9.42_LIMPIEZA_GHOST_BUS
+// medbasha - Lógica de BusTalk_v 2.9.42_LOWERCASE_LINES
 const firebaseConfig = {
     apiKey: "AIzaSyC7b6_T0ze2HgXiYHfvUeL12JSXE7ZKogc",
     authDomain: "misturnos-fe3ea.firebaseapp.com",
@@ -238,6 +238,14 @@ function busTalkApp() {
             this.iniciarGPSGeofencing();
         },
 
+        // HELPER PARA FORMATEAR CÓDIGOS CON 'a' / 'b' EN MINÚSCULAS (medbasha)
+        normalizarCodigoBus(str) {
+            if (!str) return '';
+            return str.trim().replace(/^L(\d+)([ABab])?/i, (m, num, letter) => {
+                return 'L' + num + (letter ? letter.toLowerCase() : '');
+            });
+        },
+
         async entendidoTutorial() {
             this.registrarActividad();
             await idb.set('bustalk_tutorial_v2937', 'visto');
@@ -254,7 +262,7 @@ function busTalkApp() {
         obtenerCodigoLineaActual() {
             if (!this.miLinea) return this.miBus || 'BUS';
             let match = this.miLinea.match(/^(L\d+[ab]?)/i);
-            if (match) return match[1].toUpperCase();
+            if (match) return this.normalizarCodigoBus(match[1]);
             return this.miBus || 'BUS';
         },
 
@@ -441,30 +449,30 @@ function busTalkApp() {
 
         procesarInputBus() {
             this.registrarActividad();
-            let txt = this.miBusInput.trim().toUpperCase();
+            let txt = this.normalizarCodigoBus(this.miBusInput);
             if (!txt) return;
 
             const mapaServicios = {
-                "L01A": "L01a (Maó ➔ Ciu)", "L01B": "L01b (Ciu ➔ Maó)",
-                "L14A": "L14a Exprés (Maó ➔ Ciu)", "L14B": "L14b Exprés (Ciu ➔ Maó)",
-                "L02A": "L02a (Maó ➔ Castell)", "L02B": "L02b (Castell ➔ Maó)",
-                "L03A": "L03a (Maó ➔ S. Lluís)", "L03B": "L03b (S. Lluís ➔ Maó)",
-                "L21A": "L21a (Maó ➔ S. Climent)", "L21B": "L21b (S. Climent ➔ Maó)",
-                "L22A": "L22a (Maó ➔ Canutells)", "L22B": "L22b (Canutells ➔ Maó)",
-                "L31A": "L31a (Maó ➔ C. Porter)", "L31B": "L31b (C. Porter ➔ Maó)",
-                "L08A": "L08a (Maó ➔ C. Porter)", "L08B": "L08b (C. Porter ➔ Maó)",
-                "L91A": "L91a (Maó ➔ S'Algar)", "L91B": "L91b (Alcaufar ➔ Maó)",
-                "L92A": "L92a (Maó ➔ P. Prima)", "L92B": "L92b (P. Prima ➔ Maó)",
-                "L93A": "L93a (Maó ➔ Binibèquer)", "L93B": "L93b (Binibèquer ➔ Maó)",
-                "L71A": "L71a (Maó ➔ S. Tomàs)", "L71B": "L71b (S. Tomàs ➔ Maó)",
-                "L72A": "L72a (Ciu ➔ S. Tomàs)", "L72B": "L72b (S. Tomàs ➔ Ciu)",
-                "L51A": "L51a (Maó ➔ Galdana)", "L51B": "L51b (Galdana ➔ Maó)",
-                "L52A": "L52a (Ciu ➔ Galdana)", "L52B": "L52b (Galdana ➔ Ciu)",
-                "L53A": "L53a (Ferr ➔ Galdana)", "L53B": "L53b (Galdana ➔ Ferr)",
-                "L32A": "L32a (Maó ➔ Son Bou)", "L32B": "L32b (Son Bou ➔ Maó)"
+                "L01a": "L01a (Maó ➔ Ciu)", "L01b": "L01b (Ciu ➔ Maó)",
+                "L14a": "L14a Exprés (Maó ➔ Ciu)", "L14b": "L14b Exprés (Ciu ➔ Maó)",
+                "L02a": "L02a (Maó ➔ Castell)", "L02b": "L02b (Castell ➔ Maó)",
+                "L03a": "L03a (Maó ➔ S. Lluís)", "L03b": "L03b (S. Lluís ➔ Maó)",
+                "L21a": "L21a (Maó ➔ S. Climent)", "L21b": "L21b (S. Climent ➔ Maó)",
+                "L22a": "L22a (Maó ➔ Canutells)", "L22b": "L22b (Canutells ➔ Maó)",
+                "L31a": "L31a (Maó ➔ C. Porter)", "L31b": "L31b (C. Porter ➔ Maó)",
+                "L08a": "L08a (Maó ➔ C. Porter)", "L08b": "L08b (C. Porter ➔ Maó)",
+                "L91a": "L91a (Maó ➔ S'Algar)", "L91b": "L91b (Alcaufar ➔ Maó)",
+                "L92a": "L92a (Maó ➔ P. Prima)", "L92b": "L92b (P. Prima ➔ Maó)",
+                "L93a": "L93a (Maó ➔ Binibèquer)", "L93b": "L93b (Binibèquer ➔ Maó)",
+                "L71a": "L71a (Maó ➔ S. Tomàs)", "L71b": "L71b (S. Tomàs ➔ Maó)",
+                "L72a": "L72a (Ciu ➔ S. Tomàs)", "L72b": "L72b (S. Tomàs ➔ Ciu)",
+                "L51a": "L51a (Maó ➔ Galdana)", "L51b": "L51b (Galdana ➔ Maó)",
+                "L52a": "L52a (Ciu ➔ Galdana)", "L52b": "L52b (Galdana ➔ Ciu)",
+                "L53a": "L53a (Ferr ➔ Galdana)", "L53b": "L53b (Galdana ➔ Ferr)",
+                "L32a": "L32a (Maó ➔ Son Bou)", "L32b": "L32b (Son Bou ➔ Maó)"
             };
 
-            let baseLinea = txt.split('-')[0];
+            let baseLinea = this.normalizarCodigoBus(txt.split('-')[0]);
             if (mapaServicios[baseLinea]) {
                 this.miLineaInput = mapaServicios[baseLinea];
                 this.miLinea = mapaServicios[baseLinea];
@@ -478,23 +486,23 @@ function busTalkApp() {
             this.mostrarModalZonas = false;
 
             const mapaInverso = {
-                "L01a (Maó ➔ Ciu)": "L01A-", "L01b (Ciu ➔ Maó)": "L01B-",
-                "L14a Exprés (Maó ➔ Ciu)": "L14A-", "L14b Exprés (Ciu ➔ Maó)": "L14B-",
-                "L02a (Maó ➔ Castell)": "L02A-", "L02b (Castell ➔ Maó)": "L02B-",
-                "L03a (Maó ➔ S. Lluís)": "L03A-", "L03b (S. Lluís ➔ Maó)": "L03B-",
-                "L21a (Maó ➔ S. Climent)": "L21A-", "L21b (S. Climent ➔ Maó)": "L21B-",
-                "L22a (Maó ➔ Canutells)": "L22A-", "L22b (Canutells ➔ Maó)": "L22B-",
-                "L31a (Maó ➔ C. Porter)": "L31A-", "L31b (C. Porter ➔ Maó)": "L31B-",
-                "L08a (Maó ➔ C. Porter)": "L08A-", "L08b (C. Porter ➔ Maó)": "L08B-",
-                "L91a (Maó ➔ S'Algar)": "L91A-", "L91b (Alcaufar ➔ Maó)": "L91B-",
-                "L92a (Maó ➔ P. Prima)": "L92A-", "L92b (P. Prima ➔ Maó)": "L92B-",
-                "L93a (Maó ➔ Binibèquer)": "L93A-", "L93b (Binibèquer ➔ Maó)": "L93B-",
-                "L71a (Maó ➔ S. Tomàs)": "L71A-", "L71b (S. Tomàs ➔ Maó)": "L71B-",
-                "L72a (Ciu ➔ S. Tomàs)": "L72A-", "L72b (S. Tomàs ➔ Ciu)": "L72B-",
-                "L51a (Maó ➔ Galdana)": "L51A-", "L51b (Galdana ➔ Maó)": "L51B-",
-                "L52a (Ciu ➔ Galdana)": "L52A-", "L52b (Galdana ➔ Ciu)": "L52B-",
-                "L53a (Ferr ➔ Galdana)": "L53A-", "L53b (Galdana ➔ Ferr)": "L53B-",
-                "L32a (Maó ➔ Son Bou)": "L32A-", "L32b (Son Bou ➔ Maó)": "L32B-"
+                "L01a (Maó ➔ Ciu)": "L01a-", "L01b (Ciu ➔ Maó)": "L01b-",
+                "L14a Exprés (Maó ➔ Ciu)": "L14a-", "L14b Exprés (Ciu ➔ Maó)": "L14b-",
+                "L02a (Maó ➔ Castell)": "L02a-", "L02b (Castell ➔ Maó)": "L02b-",
+                "L03a (Maó ➔ S. Lluís)": "L03a-", "L03b (S. Lluís ➔ Maó)": "L03b-",
+                "L21a (Maó ➔ S. Climent)": "L21a-", "L21b (S. Climent ➔ Maó)": "L21b-",
+                "L22a (Maó ➔ Canutells)": "L22a-", "L22b (Canutells ➔ Maó)": "L22b-",
+                "L31a (Maó ➔ C. Porter)": "L31a-", "L31b (C. Porter ➔ Maó)": "L31b-",
+                "L08a (Maó ➔ C. Porter)": "L08a-", "L08b (C. Porter ➔ Maó)": "L08b-",
+                "L91a (Maó ➔ S'Algar)": "L91a-", "L91b (Alcaufar ➔ Maó)": "L91b-",
+                "L92a (Maó ➔ P. Prima)": "L92a-", "L92b (P. Prima ➔ Maó)": "L92b-",
+                "L93a (Maó ➔ Binibèquer)": "L93a-", "L93b (Binibèquer ➔ Maó)": "L93b-",
+                "L71a (Maó ➔ S. Tomàs)": "L71a-", "L71b (S. Tomàs ➔ Maó)": "L71b-",
+                "L72a (Ciu ➔ S. Tomàs)": "L72a-", "L72b (S. Tomàs ➔ Ciu)": "L72b-",
+                "L51a (Maó ➔ Galdana)": "L51a-", "L51b (Galdana ➔ Maó)": "L51b-",
+                "L52a (Ciu ➔ Galdana)": "L52a-", "L52b (Galdana ➔ Ciu)": "L52b-",
+                "L53a (Ferr ➔ Galdana)": "L53a-", "L53b (Galdana ➔ Ferr)": "L53b-",
+                "L32a (Maó ➔ Son Bou)": "L32a-", "L32b (Son Bou ➔ Maó)": "L32b-"
             };
 
             const busViejo = this.miBus;
@@ -680,8 +688,8 @@ function busTalkApp() {
                 "L72a", "L72b", "L71a", "L71b", "L32a", "L32b"
             ];
             
-            const pertenecePonienteA = poniente.some(p => lineaA.includes(p));
-            const pertenecePonienteB = poniente.some(p => lineaB.includes(p));
+            const pertenecePonienteA = poniente.some(p => lineaA.toLowerCase().includes(p.toLowerCase()));
+            const pertenecePonienteB = poniente.some(p => lineaB.toLowerCase().includes(p.toLowerCase()));
             if (pertenecePonienteA && pertenecePonienteB) return true;
             
             const levante = [
@@ -689,8 +697,8 @@ function busTalkApp() {
                 "L21a", "L21b", "L22a", "L22b", "L31a", "L31b", 
                 "L08a", "L08b", "L91a", "L91b", "L92a", "L92b", "L93a", "L93b"
             ];
-            const perteneceLevanteA = levante.some(l => lineaA.includes(l));
-            const perteneceLevanteB = levante.some(l => lineaB.includes(l));
+            const perteneceLevanteA = levante.some(l => lineaA.toLowerCase().includes(l.toLowerCase()));
+            const perteneceLevanteB = levante.some(l => lineaB.toLowerCase().includes(l.toLowerCase()));
             if (perteneceLevanteA && perteneceLevanteB) return true;
             
             return false;
@@ -755,17 +763,17 @@ function busTalkApp() {
             let sufijoBus = numBus ? '-' + numBus : '';
 
             if (lineaDestino === 'L51b') {
-                this.miBus = "L51B" + sufijoBus;
+                this.miBus = "L51b" + sufijoBus;
                 this.miLinea = "L51b (Galdana ➔ Maó)";
                 this.miLineaInput = "L51b (Galdana ➔ Maó)";
                 this.misParadasArray = ["Galdana", "C. Mitjana", "Camping", "Cementerio", "Ferr", "Mer", "Alaior C.", "Alaior P.", "Argen", "Maó"];
             } else if (lineaDestino === 'L52b') {
-                this.miBus = "L52B" + sufijoBus;
+                this.miBus = "L52b" + sufijoBus;
                 this.miLinea = "L52b (Galdana ➔ Ciu)";
                 this.miLineaInput = "L52b (Galdana ➔ Ciu)";
                 this.misParadasArray = ["Galdana", "C. Mitjana", "Camping", "Cementerio", "Ferr", "Ciu"];
             } else if (lineaDestino === 'L53b') {
-                this.miBus = "L53B" + sufijoBus;
+                this.miBus = "L53b" + sufijoBus;
                 this.miLinea = "L53b (Galdana ➔ Ferr)";
                 this.miLineaInput = "L53b (Galdana ➔ Ferr)";
                 this.misParadasArray = ["Galdana", "C. Mitjana", "Camping", "Cementerio", "Ferr"];
@@ -804,12 +812,12 @@ function busTalkApp() {
             let sufijoBus = numBus ? '-' + numBus : '';
 
             if (lineaDestino === 'L71b') {
-                this.miBus = "L71B" + sufijoBus;
+                this.miBus = "L71b" + sufijoBus;
                 this.miLinea = "L71b (S. Tomàs ➔ Maó)";
                 this.miLineaInput = "L71b (S. Tomàs ➔ Maó)";
                 this.misParadasArray = ["S. Tomàs 1ª", "S. Tomàs 2ª", "S. Tomàs 3ª", "Migjorn", "Alaior C.", "Alaior P.", "Argen", "Maó"];
             } else if (lineaDestino === 'L72b') {
-                this.miBus = "L72B" + sufijoBus;
+                this.miBus = "L72b" + sufijoBus;
                 this.miLinea = "L72b (S. Tomàs ➔ Ciu)";
                 this.miLineaInput = "L72b (S. Tomàs ➔ Ciu)";
                 this.misParadasArray = ["S. Tomàs 1ª", "S. Tomàs 2ª", "S. Tomàs 3ª", "Migjorn", "Mer", "Ferr", "Ciu"];
@@ -893,13 +901,13 @@ function busTalkApp() {
 
         iniciarTurno() {
             this.registrarActividad();
-            let busNormalizado = this.miBusInput.trim().toUpperCase();
+            let busNormalizado = this.normalizarCodigoBus(this.miBusInput);
             if (!busNormalizado || busNormalizado === '') { 
                 alert("Por favor, introduce el servicio de tu autobús."); 
                 return; 
             }
-            if (!busNormalizado.startsWith('L') && busNormalizado !== 'ESCOLAR' && busNormalizado !== 'DISCRECIONAL') {
-                alert("⚠️ Atención: Debes incluir la letra 'L' en el número de servicio (Ejemplo: L01A-56, L02A-12).");
+            if (!busNormalizado.toUpperCase().startsWith('L') && busNormalizado.toUpperCase() !== 'ESCOLAR' && busNormalizado.toUpperCase() !== 'DISCRECIONAL') {
+                alert("⚠️ Atención: Debes incluir la letra 'L' en el número de servicio (Ejemplo: L01a-56, L02a-12).");
                 return;
             }
 
