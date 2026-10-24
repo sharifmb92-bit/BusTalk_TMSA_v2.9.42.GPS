@@ -101,10 +101,10 @@ function busTalkApp() {
         coordenadasParadasVuelta: {
             "Ciu": { lat: 39.998243, lng: 3.838948 },               // Ciutadella Plaça de la Pau
             "Plaça de la Pau": { lat: 39.998243, lng: 3.838948 },
-            "Ferr": { lat: 39.985473, lng: 4.014134 },              // Dársena Ferreries Av. Jaume Mascaró
-            "Mer": { lat: 39.985087, lng: 4.094615 },               // Es Mercadal
+            "Ferr": { lat: 39.985454, lng: 4.014234 },              // Dársena Ferreries Av. Jaume Mascaró
+            "Mer": { lat: 39.985084, lng: 4.0946121 },               // Es Mercadal
             "Alaior C.": { lat: 39.930822, lng: 4.137572 },         // Alaior Centro
-            "Alaior P.": { lat: 39.933332, lng: 4.143653 },         // Alaior Polígon
+            "Alaior P.": { lat: 39.933314, lng: 4.143627 },         // Alaior Polígon
             "Argen": { lat: 39.916372, lng: 4.178651 },             // L'Argentina
             "Maó": { lat: 39.886854, lng: 4.258401 }                // Dársena Estació de Maó
         },
