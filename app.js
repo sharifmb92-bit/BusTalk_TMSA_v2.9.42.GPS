@@ -645,8 +645,8 @@ function busTalkApp() {
 
         obtenerTiempoTramo(origen, destino) {
             const tiempos = {
-                "Ciu-Ferr": 20, "Ferr-Mer": 10, "Mer-Alaior C.": 10, "Alaior C.-Alaior P.": 3, "Alaior P.-Argen": 5, "Argen-Maó": 12,
-                "Maó-Argen": 12, "Argen-Alaior P.": 5, "Alaior P.-Alaior C.": 3, "Alaior C.-Mer": 10, "Mer-Ferr": 10, "Ferr-Ciu": 20,
+                "Ciu-Ferr": 20, "Ferr-Mer": 10, "Mer-Alaior C.": 10, "Alaior C.-Alaior P.": 4, "Alaior P.-Argen": 5, "Argen-Maó": 15,
+                "Maó-Argen": 13, "Argen-Alaior P.": 5, "Alaior P.-Alaior C.": 4, "Alaior C.-Mer": 10, "Mer-Ferr": 10, "Ferr-Ciu": 20,
                 "Ciu-Maó": 45, "Maó-Ciu": 45,
                 "Maó-Fontanilles": 5, "Fontanilles-Castell": 5, "Castell-Fontanilles": 5, "Fontanilles-Maó": 5,
                 "Maó-H. Mateu Orfila": 6, "H. Mateu Orfila-S. Lluís": 6, "S. Lluís-H. Mateu Orfila": 6, "H. Mateu Orfila-Maó": 6,
